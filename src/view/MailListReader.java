@@ -5,20 +5,20 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
-import model.Mail;
+import static model.Mail.isMail;
 
 public class MailListReader {
     
-    public static List<Mail> read (String fileName) {
-        List<Mail> list = new ArrayList<>();
+    public static List<String> read(String fileName) {
+        List<String> list = new ArrayList<>();
         
         try{
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             
             IteratorReader iteratorReader = new IteratorReader(reader);
             for(String line : iteratorReader) {
-                if(Mail.isMail(line)) {
-                    list.add(new Mail(line));
+                if(isMail(line)) {
+                    list.add(line);
                 }
             }
         }
@@ -26,6 +26,5 @@ public class MailListReader {
             System.out.println("ERROR MailListReader::read (File Not Fount)" + exception.getMessage());
         }
         return list;
-    }
-    
+    } 
 }
